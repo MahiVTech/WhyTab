@@ -1,0 +1,152 @@
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa, #eef2ff);
+  color: #1f2937;
+}
+
+/* ===== PAGE CONTAINER ===== */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* ===== HEADINGS ===== */
+h2 {
+  margin-bottom: 10px;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+/* ===== INSIGHTS BOX ===== */
+#insightsBox {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+body {
+  background: linear-gradient(135deg, #eef2ff, #fdf4ff);
+}
+
+body.dark {
+  background: linear-gradient(135deg, #0f172a, #020617);
+}
+
+/* ===== CHARTS ===== */
+#chartsBox {
+  margin-top: 16px;
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* ===== HISTORY CARDS ===== */
+.history-card {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.history-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(0,0,0,0.12);
+}
+
+body.dark .history-card {
+  background: rgba(30,41,59,0.6);
+}
+
+
+
+/* ===== META TEXT ===== */
+.meta {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s ease;
+}
+/* ===== POPUP ===== */
+.reason-btn {
+  width: 100%;
+  margin-bottom: 8px;
+  background: #eef2ff;
+  color: #1f2937;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.reason-btn:hover {
+  background: #c7d2fe;
+}
+body {
+  background: linear-gradient(135deg, #eef2ff, #fdf4ff);
+}
+
+body.dark {
+  background: linear-gradient(135deg, #0f172a, #020617);
+}
+
+/* ===== DARK MODE ===== */
+body.dark {
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: #e5e7eb;
+}
+
+body.dark #insightsBox,
+body.dark #chartsBox,
+body.dark .history-card {
+  background: #020617;
+  color: #e5e7eb;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+}
+
+body.dark .meta {
+  color: #9ca3af;
+}
+
+body.dark a {
+  color: #93c5fd;
+}
+
+body.dark button {
+  background: #2563eb;
+}
+
+body.dark button:hover {
+  background: #1d4ed8;
+}
+
+button:hover {
+  background: #4338ca;
+}
+
+a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+a:hover {
+  text-decoration: underline;
+}

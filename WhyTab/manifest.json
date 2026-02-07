@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "WhyTab",
+  "description": "Remember why you opened a tab",
+  "version": "1.0",
+  "permissions": [
+    "tabs",
+    "storage",
+    "alarms",
+    "notifications",
+    "downloads"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "128": "icons/icon128.png"
+  }
+}

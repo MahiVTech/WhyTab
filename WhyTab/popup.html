@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WhyTab</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { width: 320px; }
+    select { width: 100%; padding: 6px; margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <h3>🤔 Why did you open this tab?</h3>
+
+  <div class="history-card">
+    <button class="reason-btn">Assignment</button>
+    <button class="reason-btn">Research</button>
+    <button class="reason-btn">Read later</button>
+    <button class="reason-btn">Buy later</button>
+    <button class="reason-btn">Entertainment</button>
+  </div>
+
+  <h4 style="margin-top:12px">⏰ Remind me</h4>
+
+<select id="reminderTime">
+  <option value="">No reminder</option>
+  <option value="30">In 30 minutes</option>
+  <option value="60">In 1 hour</option>
+  <option value="1440">Tomorrow</option>
+</select>
+
+<input
+  type="number"
+  id="customReminder"
+  placeholder="Or type minutes (e.g. 45)"
+  style="width:100%;margin-top:6px;padding:6px"
+/>
+
+
+  <div style="margin-top:12px">
+    <a href="history.html" target="_blank">📜 View History</a><br>
+    <a href="settings.html" target="_blank">⚙️ Settings</a>
+  </div>
+
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
