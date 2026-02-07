@@ -3,6 +3,7 @@
 WhyTab is a smart Chrome extension that helps you remember **why** you opened a tab — and reminds you **when it matters**.
 
 Most people open 20+ tabs and forget their intent. WhyTab fixes that.
+> A productivity-focused Chrome extension for mindful browsing.
 
 ---
 
@@ -21,6 +22,8 @@ Most people open 20+ tabs and forget their intent. WhyTab fixes that.
 
 ## 🛠️ Tech Stack
 
+- HTML
+- CSS
 - JavaScript
 - Chrome Extensions API (Manifest V3)
 - Chrome Storage, Alarms & Notifications
@@ -43,6 +46,12 @@ Most people open 20+ tabs and forget their intent. WhyTab fixes that.
 - AI-generated weekly summaries
 - Tag-based filtering
 - Cross-device reminders
+
+## 🎯 Use Case
+- Students managing assignments  
+- Developers avoiding tab overload  
+- Anyone who opens tabs and forgets why
+
 
 ---
 
