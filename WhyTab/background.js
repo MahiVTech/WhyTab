@@ -55,11 +55,12 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     if (!tab) return;
 
     chrome.notifications.create({
-      type: "basic",
-      iconUrl: "icons/icon128.png",
-      title: "WhyTab Reminder ⏰",
-      message: `You opened "${tab.title}" for: ${tab.reason}`
-    });
+  type: "basic",
+  iconUrl: "icons/icon128.png",
+  title: "⏰ WhyTab Reminder",
+  message: `You said this tab was for "${tab.reason}". Still relevant?`,
+  priority: 2
+});
 
     // Cleanup after fire
     chrome.storage.local.remove(alarm.name);
