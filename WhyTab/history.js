@@ -103,7 +103,70 @@ function updateReminder(tab, minutes) {
   });
 }
 
+function calculateStats(tabs) {
+  let night = 0;
+  let day = 0;
+  const reasons = {};
+
+  tabs.forEach(t => {
+    reasons[t.reason] = (reasons[t.reason] || 0) + 1;
+    const h = new Date(t.time).getHours();
+    if (h >= 22 || h < 6) night++;
+    else day++;
+  });
+
+  const topReason = Object.keys(reasons)
+    .sort((a, b) => reasons[b] - reasons[a])[0] || "—";
+
+  return {
+    total: tabs.length,
+    night,
+    day,
+    topReason
+  };
+}
+
 // ================= RENDER =================
+function generateAICoachCards(tabs) {
+  const cards = [];
+
+  if (tabs.length >= 8) {
+    cards.push({
+      title: "🧠 Tab Overload",
+      text: "You’re opening many tabs. Consider closing or finishing a few before adding more."
+    });
+  }
+
+  const reasonCount = {};
+  tabs.forEach(t => {
+    reasonCount[t.reason] = (reasonCount[t.reason] || 0) + 1;
+  });
+
+  if (reasonCount["Entertainment"] > tabs.length / 2) {
+    cards.push({
+      title: "👀 Distraction Alert",
+      text: "Entertainment dominates your tabs. Maybe set a reminder or take a short break intentionally."
+    });
+  }
+
+  if (reasonCount["Assignment"] || reasonCount["Research"]) {
+    cards.push({
+      title: "🔥 Focus Detected",
+      text: "You’re actively working on meaningful tasks. This is a strong productivity pattern."
+    });
+  }
+
+  if (cards.length === 0) {
+    cards.push({
+      title: "🌱 Balanced Usage",
+      text: "Your tab usage looks balanced. Keep being intentional."
+    });
+  }
+
+  return cards;
+}
+
+
 function aiCoachMessage(tabs) {
   const count = {};
   tabs.forEach(t => count[t.reason] = (count[t.reason] || 0) + 1);
@@ -130,7 +193,23 @@ function render(tabs) {
   if (tabs.length === 0) {
     insightsHTML += `<p>✨ No pending tabs. Clean slate.</p>`;
     insightsBox.innerHTML = insightsHTML;
-    chartsBox.innerHTML = "";
+    const aiCoachBox = document.getElementById("aiCoachBox");
+aiCoachBox.innerHTML = "";
+
+const coachCards = generateAICoachCards(tabs);
+
+coachCards.forEach(card => {
+  const div = document.createElement("div");
+  div.className = "ai-coach-card";
+
+  div.innerHTML = `
+    <div class="ai-coach-title">${card.title}</div>
+    <div class="ai-coach-text">${card.text}</div>
+  `;
+
+  aiCoachBox.appendChild(div);
+});
+
     historyList.innerHTML = "<p>No tabs saved yet 👀</p>";
     return;
   }
@@ -154,21 +233,106 @@ function render(tabs) {
     : `<p>☀️ You open most tabs during the day.</p>`;
 insightsHTML += `<p>${aiCoachMessage(tabs)}</p>`;
 
-  insightsBox.innerHTML = insightsHTML;
+  // ================= INSIGHTS CARDS =================
+
+const coachMessage =
+  reasons["Entertainment"] > tabs.length / 2
+    ? "👀 Too much entertainment lately. Be honest with yourself."
+    : reasons["Assignment"] || reasons["Research"]
+    ? "👏 You’re focused. Keep this momentum."
+    : "🧠 Mixed usage. Try setting clearer intent.";
+
+insightsBox.innerHTML = `
+  <div class="insights-grid">
+
+    <div class="insight-card">
+      <h4>🧠 AI Coach</h4>
+      <p>${coachMessage}</p>
+    </div>
+    
+
+    <div class="insight-card">
+      <h4>🎯 Focus</h4>
+      <p>Main reason: <b>${topReason}</b></p>
+    </div>
+
+    <div class="insight-card">
+      <h4>⏰ Habit</h4>
+      <p>${night > day ? "Mostly active at night 🌙" : "Mostly active during the day ☀️"}</p>
+    </div>
+
+  </div>
+`;
+// ---------- STATS CARDS ----------
+const statsBox = document.getElementById("statsBox");
+statsBox.innerHTML = "";
+
+const stats = calculateStats(tabs);
+
+const statItems = [
+  { label: "Total Tabs", value: stats.total },
+  { label: "Day Tabs ☀️", value: stats.day },
+  { label: "Night Tabs 🌙", value: stats.night },
+  { label: "Top Reason", value: stats.topReason }
+];
+
+statItems.forEach(item => {
+  const div = document.createElement("div");
+  div.className = "stat-card";
+
+  div.innerHTML = `
+    <div class="stat-title">${item.label}</div>
+    <div class="stat-value">${item.value}</div>
+  `;
+
+  statsBox.appendChild(div);
+});
+
 
   // ---------- CHARTS ----------
-  chartsBox.innerHTML = `<h4>Reason Distribution</h4>`;
-  Object.keys(reasons).forEach(r => {
-    const w = (reasons[r] / tabs.length) * 100;
-    chartsBox.innerHTML += `
-      <div style="margin-bottom:8px">
-        <small>${r} (${reasons[r]})</small>
-        <div style="background:#e5e7eb;border-radius:6px">
-          <div style="width:${w}%;height:8px;background:#4f46e5;border-radius:6px"></div>
-        </div>
-      </div>
-    `;
-  });
+  // ---------- PINTEREST-STYLE CHART ----------
+// ---------- PIE CHART ----------
+const pie = document.getElementById("pieChart");
+const legend = document.getElementById("pieLegend");
+
+const total = tabs.length;
+let currentAngle = 0;
+let gradientParts = [];
+let colors = [
+  "#a78bfa", // lavender
+  "#60a5fa", // soft blue
+  "#34d399", // mint
+  "#fbbf24", // warm yellow
+  "#f472b6"  // soft pink
+];
+let i = 0;
+
+legend.innerHTML = "";
+
+Object.keys(reasons).forEach(reason => {
+  const value = reasons[reason];
+  const percent = Math.round((value / total) * 100);
+  const angle = (value / total) * 360;
+
+  gradientParts.push(
+    `${colors[i % colors.length]} ${currentAngle}deg ${currentAngle + angle}deg`
+  );
+
+  legend.innerHTML += `
+    <div>
+      <span class="pie-dot" style="background:${colors[i % colors.length]}"></span>
+     ${reason} — <b>${percent}%</b>
+
+    </div>
+  `;
+
+  currentAngle += angle;
+  i++;
+});
+
+pie.style.background = `conic-gradient(${gradientParts.join(",")})`;
+
+
 
   // ---------- HISTORY LIST ----------
   chrome.storage.local.get("aiEnabled", (s) => {
@@ -184,19 +348,20 @@ insightsHTML += `<p>${aiCoachMessage(tabs)}</p>`;
      div.innerHTML = `
   <h4>${tab.title}</h4>
 
-  ${showAI ? `<p class="meta">🧠 AI Summary: ${generateAISummary(tab)}</p>` : ""}
+  ${showAI ? `<p class="meta">🧠 ${generateAISummary(tab)}</p>` : ""}
 
-  <p class="meta">🧠 AI Confidence: <b>${aiConfidence(tab)}</b></p>
+  <p class="meta">🧠 Confidence: <b>${aiConfidence(tab)}</b></p>
 
-  ${reminderText ? `
-    <p class="meta">⏰ Reminder: ${reminderText}</p>
-    <button class="edit-reminder">✏️ Edit Reminder</button>
-  ` : ""}
+  ${reminderText ? `<p class="meta">⏰ ${reminderText}</p>` : ""}
 
   <p class="meta">Opened: ${new Date(tab.time).toLocaleString()}</p>
-  <a href="${tab.url}" target="_blank">🔗 Open Tab</a><br>
-  <button class="done-btn">❌ Done</button>
+
+  <div class="card-actions">
+    <a href="${tab.url}" target="_blank">🔗 Open</a>
+    <button class="done-btn">❌ Done</button>
+  </div>
 `;
+
 
 
       // Delete

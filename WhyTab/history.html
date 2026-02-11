@@ -1,30 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>WhyTab History</title>
-  <a href="settings.html">⚙️ Settings</a>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>WhyTab • History</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-<div class="container">
+<div class="dashboard">
 
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <h2>📜 Tab History</h2>
-    <button id="themeToggle">🌙 Dark Mode</button>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      📘 <span>WhyTab</span>
+    </div>
+
+    <nav>
+      <a class="active">📜 History</a>
+      <a href="settings.html">⚙️ Settings</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+
+    <!-- Top App Bar -->
+    <header class="history-appbar">
+      <div class="app-left">
+        <span class="logo">📘 WhyTab</span>
+      </div>
+
+      <div class="app-right">
+        <button id="themeToggle" class="icon-btn">🌙</button>
+        <a href="settings.html" class="icon-btn">⚙️</a>
+      </div>
+    </header>
+
+    <!-- Dashboard -->
+    <section class="history-dashboard">
+
+      <!-- Insights -->
+      <section id="insightsBox" class="glass-card"></section>
+
+      <section id="statsBox" class="stats-grid"></section>
+
+      <!-- Charts -->
+<section id="chartsBox" class="glass-card">
+  <h4>📊 Usage Breakdown</h4>
+  <div class="pie-wrapper">
+    <div id="pieChart" class="pie"></div>
+    <div id="pieLegend" class="pie-legend"></div>
   </div>
+</section>
 
-  <button id="exportReport" style="margin-bottom:12px">
-    📤 Export Weekly Report
-  </button>
+      <!-- Saved Tabs -->
+      <section class="tabs-section">
+        <h3 class="section-title">Saved Tabs</h3>
+        <div id="historyList" class="tabs-grid"></div>
+      </section>
 
-  <div id="insightsBox"></div>
-  <div id="chartsBox"></div>
+    </section>
 
-  <h3>Saved Tabs</h3>
-  <div id="historyList"></div>
-
+  </main>
 </div>
 
 <script src="history.js"></script>

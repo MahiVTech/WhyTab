@@ -1,6 +1,17 @@
+
+console.log("✅ popup.js loaded");
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("✅ Popup loaded");
+});
+
 const buttons = document.querySelectorAll(".reason-btn");
 const reminderSelect = document.getElementById("reminderTime");
 const customReminder = document.getElementById("customReminder");
+document.querySelectorAll(".reason-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    console.log("🟢 Button clicked:", btn.innerText);
+  });
+});
 
 buttons.forEach(btn => {
   btn.onclick = async () => {
