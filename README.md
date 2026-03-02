@@ -61,3 +61,44 @@ WhyTab follows a modular Chrome Extension architecture (Manifest V3):
 ## 🔧 Installation (Developer Mode)
 
 1. Clone the repository:
+
+2. Open Chrome and navigate to:
+
+3. Enable **Developer Mode**
+
+4. Click **Load Unpacked**
+
+5. Select the project folder
+
+---
+
+## 🧠 Key Engineering Learnings
+
+- Managing async Chrome APIs
+- Alarm lifecycle handling in service workers
+- State persistence with chrome.storage
+- Preventing duplicate UI re-renders
+- Handling popup lifecycle limitations
+- Structuring a real-world browser extension
+
+---
+
+## 📌 Future Improvements
+
+- Cloud synchronization
+- AI-generated weekly summaries
+- Tag-based tab categorization
+- Cross-device reminder sync
+- Chrome Web Store deployment
+
+---
+
+## 👩‍💻 Author
+
+**Mahi Varshney**  
+B.Tech CS-AI Student  
+Focused on building practical productivity and AI-powered tools.
+
+---
+
+Built to reduce tab chaos and promote intentional browsing.
