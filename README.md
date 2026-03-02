@@ -54,7 +54,7 @@ WhyTab follows a modular Chrome Extension architecture (Manifest V3):
 ![Dashboard](./WhyTab/screenshots/history.png)
 
 ### 🧠 Insights View
-![Insights](./WhyTab/screenshots/history2(2).png)
+![Insights](./WhyTab/screenshots/history2.png)
 
 ---
 
