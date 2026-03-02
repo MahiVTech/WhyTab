@@ -278,7 +278,7 @@ const statItems = [
 
 statItems.forEach(item => {
   const div = document.createElement("div");
-  div.className = "stat-card";
+  div.className = "stat-card reveal";
 
   div.innerHTML = `
     <div class="stat-title">${item.label}</div>
@@ -298,13 +298,13 @@ const legend = document.getElementById("pieLegend");
 const total = tabs.length;
 let currentAngle = 0;
 let gradientParts = [];
-let colors = [
-  "#a78bfa", // lavender
-  "#60a5fa", // soft blue
-  "#34d399", // mint
-  "#fbbf24", // warm yellow
-  "#f472b6"  // soft pink
+const colors = [
+  "var(--color1)",
+  "var(--color2)",
+  "var(--color3)",
+  "var(--color4)"
 ];
+
 let i = 0;
 
 legend.innerHTML = "";
@@ -340,8 +340,9 @@ pie.style.background = `conic-gradient(${gradientParts.join(",")})`;
    
 
     tabs.slice().reverse().forEach(tab => {
-      const div = document.createElement("div");
-      div.className = "history-card";
+     const div = document.createElement("div");
+    div.className = "history-card reveal";
+
 
       const reminderText = formatReminder(tab.remindIn);
 
@@ -357,13 +358,15 @@ pie.style.background = `conic-gradient(${gradientParts.join(",")})`;
   <p class="meta">Opened: ${new Date(tab.time).toLocaleString()}</p>
 
   <div class="card-actions">
-    <a href="${tab.url}" target="_blank">🔗 Open</a>
+    <button class="open-btn">🔗 Open</button>
     <button class="done-btn">❌ Done</button>
   </div>
 `;
 
 
-
+    div.querySelector(".open-btn").onclick = () => {
+  chrome.tabs.create({ url: tab.url });
+};
       // Delete
    div.querySelector(".done-btn").onclick = () => {
   console.log("🗑️ Delete clicked for ID:", tab.id);
